@@ -1,0 +1,49 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int K = sc.nextInt();
+
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        findLongestSubarrayWithSumK(arr, K);
+    }
+
+    public static void findLongestSubarrayWithSumK(int[] arr, int K) {
+        int maxLength = 0;
+        int startIndex = -1;
+        int endIndex = -1;
+
+        for (int i = 0; i < arr.length; i++) {
+            int sum = 0;
+
+            for (int j = i; j < arr.length; j++) {
+                sum += arr[j];
+
+                if (sum == K) {
+                    int length = j - i + 1;
+                    if (length > maxLength) {
+                        maxLength = length;
+                        startIndex = i;
+                        endIndex = j;
+                    }
+                }
+            }
+        }
+
+        if (startIndex != -1) {
+            for (int s = startIndex; s <= endIndex; s++) {
+                System.out.print(arr[s] + " ");
+            }
+        } else {
+            System.out.println("No subarray found.");
+        }
+    }
+}
